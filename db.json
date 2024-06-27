@@ -3,13 +3,26 @@
     {
       "id": "14fe",
       "name": "projeto atualizado",
-      "budget": "13000",
+      "budget": "7000",
       "category": {
         "id": "4",
         "name": "Planejamento"
       },
-      "cost": 0,
-      "services": []
+      "cost": 200,
+      "services": [
+        {
+          "name": "Meu novo serviço",
+          "cost": "100",
+          "description": "Faz isso aqui",
+          "id": "aec7b250-b6cc-4024-9b1e-4f5e18d8d0f4"
+        },
+        {
+          "name": "Meu novo serviço",
+          "cost": "100",
+          "description": "Faz isso aqui",
+          "id": "aec7b250-b6cc-4024-9b1e-4f5e18d8d0f4"
+        }
+      ]
     },
     {
       "id": "d5da",
