@@ -8,7 +8,7 @@ import ServiceForm from "../service/ServiceForm";
 import ServiceCard from "../service/ServiceCard";
 import Message from "../layout/Message";
 
-import { useParams } from "react-router-dom";
+import { json, useParams } from "react-router-dom";
 
 function Project() {
   const { id } = useParams();
@@ -94,14 +94,40 @@ function Project() {
       body: JSON.stringify(project),
     })
       .then((resp) => resp.json())
-      .then((data) => {
+      .then(() => {
         // exibir os serviços
         setShowServiceForm(false);
+        setMessage("Serviço criado com sucesso!");
+        setType("success");
       })
       .catch((err) => console.log(err));
   }
 
-  function removeService() {}
+  function removeService(id, cost) {
+    const servicesUpdated = project.services.filter(
+      (service) => service.id !== id
+    );
+
+    const projectUpdated = project;
+    projectUpdated.services = servicesUpdated;
+    project.cost = parseFloat(projectUpdated.cost) - parseFloat(cost);
+
+    fetch(`http://localhost:5000/projects/${projectUpdated.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(projectUpdated),
+    })
+      .then((resp) => resp.json())
+      .then(() => {
+        setProject(projectUpdated);
+        setServices(servicesUpdated);
+        setMessage("Serviço removido com sucesso!");
+        setType("error");
+      })
+      .catch((err) => console.log(err));
+  }
 
   function toggleProjectForm() {
     setShowProjectForm(!showProjectForm);
